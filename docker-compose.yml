@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  localstack:
+    image: localstack/localstack
+    container_name: localstack
+    ports:
+      - "4570:4566" # Main gateway
+      - "4571:4571" # Example service port
+    environment:
+      - SERVICES=s3,lambda,dynamodb
+      - DEBUG=1
+      - LAMBDA_EXECUTOR=docker
+    volumes:
+      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
